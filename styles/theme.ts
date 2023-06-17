@@ -11,6 +11,7 @@ export const roboto = Roboto({
   fallback: ['Helvetica', 'Arial', 'sans-serif'],
 });
 
+// Create a theme instance.
 const theme = createTheme(
   {
     palette: {
