@@ -96,6 +96,7 @@
                 "/^@/components/",
                 "/^@/public/",
                 "/^@/styles/",
+                "/^@/services/",
                 [
                     "module"
                 ],
