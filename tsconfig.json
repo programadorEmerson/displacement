@@ -26,6 +26,7 @@
       "@/styles/*": ["styles/*"],
       "@/enums/*": ["enums/*"],
       "@/hooks/*": ["hooks/*"],
+      "@/interfaces/*": ["interfaces/*"],
       "@/services": ["services/*"]
     }
   },
