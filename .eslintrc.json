@@ -97,6 +97,7 @@
                 "/^@/public/",
                 "/^@/styles/",
                 "/^@/enums/",
+                "/^@/hooks/",
                 "/^@/services/",
                 [
                     "module"

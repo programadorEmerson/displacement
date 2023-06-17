@@ -25,6 +25,7 @@
       "@/pages/*": ["pages/*"],
       "@/styles/*": ["styles/*"],
       "@/enums/*": ["enums/*"],
+      "@/hooks/*": ["hooks/*"],
       "@/services": ["services/*"]
     }
   },

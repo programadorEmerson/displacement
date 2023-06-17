@@ -1,8 +1,11 @@
-import React, { FC } from 'react';
-
-import { Box } from '@mui/material';
+import React, { FC, useState } from 'react';
 
 import TitleApp from '@/components/Layout/TitleApp';
+
+import useDeviceType from '@/hooks/useDeviceType';
+
+import MenuDrawer from './AppBar';
+import { StyledApp } from './styles';
 
 type LayoutProps = {
   title: string;
@@ -10,11 +13,21 @@ type LayoutProps = {
 };
 
 const Layout: FC<LayoutProps> = ({ title, children }) => {
+  const [open, setOpen] = useState(false);
+
+  const { type } = useDeviceType();
+
   return (
-    <Box>
+    <MenuDrawer
+      open={open}
+      setOpen={setOpen}
+    >
       <TitleApp title={title} />
-      {children}
-    </Box>
+      <StyledApp type={type}
+        className={`menu-${open ? 'opened' : 'closed'}`}>
+        {children}
+      </StyledApp>
+    </MenuDrawer>
   );
 };
 
