@@ -1,47 +1,54 @@
-# TypeScript Next.js example
+<h1><br>
+<p align="center">
+Frameworks/Bibliotecas utilizadas
+</p>
+</h1>
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+`NextJs`</br>
+O Next.js é um framework de código aberto, criado com React e permite o desenvolvimento de aplicações tanto front-end quanto back-end. O React é uma biblioteca Javascript para construção de interfaces e o Next é considerado um framework pois adiciona várias funcionalidades em cima do React. O Next.js por sua vez, busca reunir diversas funcionalidades a fim de manter o foco total em sua produtividade e eficiência. Totalmente pré-configurado, fornece toda estrutura para a criação de projetos com maior facilidade, trazendo para o desenvolvedor maior agilidade na criação de suas aplicações. Além disso, o Next.js permite que suas aplicações sejam renderizadas no lado do servidor (SSR), diminuindo o tempo de carregamento da aplicação, já que o esforço fica por conta do servidor, não do dispositivo do cliente, além de consumir menos recursos.
 
-## Deploy your own
+`Material-UI`</br>
+Material Design é um sistema de design apoiado em código-fonte aberto que auxilia as equipes a criarem experiências digitais de alta qualidade padronizando todas as suas interfaces gráficas. o Material Design tem o princípio de ser simples, direto, chamativo, amigável e intuitivo, então cada elemento da interface deve se encaixar nessas características, além de ser muito bem documentada, ativamente mantida, com vários cases de sucesso, muito customizável, facilitando a criação de componentes com comportamentos padrões, como modals, formulários, além disso existe a possibilidade de customizar com CSS utilizando o padrão recomendado pela própria biblioteca.
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-typescript)
+`ESLint`</br>
+É uma ferramenta de linting para código JavaScript que auxilia os desenvolvedores a identificar e corrigir problemas comuns no código-fonte. Ele analisa o código JavaScript em busca de padrões problemáticos, erros de sintaxe, práticas desencorajadas e outros problemas, fornecendo um feedback útil para melhorar a qualidade e a legibilidade do código, além de que é altamente configurável, permitindo que você personalize as regras de linting de acordo com as necessidades e preferências do seu projeto. Você pode especificar quais regras aplicar, quais regras ignorar, definir estilos de codificação, habilitar ou desabilitar plugins e muito mais. No geral, é uma ferramenta essencial para o desenvolvimento JavaScript, pois ajuda a melhorar a qualidade do código, evita erros comuns e promove boas práticas de programação.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript&project-name=with-typescript&repository-name=with-typescript)
+`Eslint-plugin-import-helpers`</br>
+É um plugin para o Eslint, uma ferramenta popular de linting de código JavaScript. Esse plugin específico fornece regras e funcionalidades extras relacionadas à importação de módulos e à organização de declarações de import. Com isso, você pode manter um padrão consistente nas importações do seu código, o que melhora a legibilidade e a manutenibilidade do mesmo. Ele oferece várias regras configuráveis para ajudar a evitar importações desorganizadas e garantir uma estrutura coerente nas declarações de import, além de que é uma ferramenta valiosa para equipes de desenvolvimento que desejam manter um código limpo e consistente. Ele ajuda a evitar problemas comuns relacionados à importação de módulos, promovendo boas práticas e padronização dentro do código JavaScript.
 
-## How to use it?
+`Eslint-plugin-unused-imports`</br>
+É um plugin para o Eslint, uma ferramenta popular de linting de código JavaScript. Esse plugin específico é projetado para ajudar a identificar e remover importações não utilizadas em seu código. Com ele você pode garantir que todas as importações em seu código sejam realmente usadas, evitando importações desnecessárias e reduzindo o tamanho do bundle do seu aplicativo, além de que você pode manter seu código mais limpo e livre de importações desnecessárias, o que contribui para uma melhor manutenibilidade e desempenho do seu aplicativo JavaScript.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+`Commitizen`</br>
+É uma ferramenta de linha de comando que facilita a criação de mensagens de commit padronizadas e semânticas. Ele visa promover uma boa prática de mensagens de commit, seguindo convenções definidas, como o [Conventional Commits](https://www.conventionalcommits.org/), que ajuda a manter um histórico de commit mais legível, organizado e compreensível.
+
+Com o `commitizen`, você pode usar uma interface interativa para criar mensagens de commit seguindo um formato específico, incluindo o tipo de alteração, o escopo, uma descrição concisa e outras informações opcionais. Isso ajuda a fornecer contexto sobre as mudanças realizadas no código e facilita a navegação e a compreensão do histórico de commits além de que é uma ferramenta útil para equipes que desejam adotar uma abordagem padronizada e semântica para mensagens de commit, tornando mais fácil rastrear e entender as alterações em um projeto.
+
+<h1><br>
+<p align="center">
+Importante para Executar a aplicação
+</p>
+</h1>
 
 ```bash
-npx create-next-app --example with-typescript with-typescript-app
+# Instalação de pacotes
+$ npm install
+# ou
+$ yarn
+
+# Modo desenvolvimento com (Hot Reload)
+$ npm run dev
+# ou
+$ yarn dev
+
+# Gerando o build e testando local (Sem Hot Reload)
+# Fica mais rápido o teste no navegador por ser o build
+$ npm run build:start
+# ou
+$ yarn build:start
+
+# Testando local (Com Hot Reload)
+$ npm run dev
+# ou
+$ yarn dev
 ```
-
-```bash
-yarn create next-app --example with-typescript with-typescript-app
-```
-
-```bash
-pnpm create next-app --example with-typescript with-typescript-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-## Notes
-
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
-
-```
-npm install --save-dev typescript
-```
-
-To enable TypeScript's features, we install the type declarations for React and Node.
-
-```
-npm install --save-dev @types/react @types/react-dom @types/node
-```
-
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
-
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
-
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
