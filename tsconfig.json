@@ -24,6 +24,7 @@
       "@/components/*": ["components/*"],
       "@/pages/*": ["pages/*"],
       "@/styles/*": ["styles/*"],
+      "@/enums/*": ["enums/*"],
       "@/services": ["services/*"]
     }
   },

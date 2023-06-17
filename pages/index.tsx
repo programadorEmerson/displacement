@@ -2,15 +2,17 @@ import React from 'react';
 
 import { NextPage } from 'next';
 
-import { Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
+
+import Layout from '@/components/Layout';
 
 const IndexPage: NextPage = () => (
-  <Box>
+  <Layout title='Home Page'>
     <Button variant="contained"
       color="primary">
       Hello World
     </Button>
-  </Box>
+  </Layout>
 );
 
 export default IndexPage;
