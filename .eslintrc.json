@@ -87,12 +87,27 @@
             {
               "newlinesBetween": "always",
               "groups": [
-                ["/^react$/", "/^next$/"],
-                "module",
-                "/^@components/",
-                ["/^@/", "/^\\./", "/^~/"],
-                ["parent", "sibling", "index"]
-              ],
+                "/^react/",
+                "/^next/",
+                "/^axios/",
+                "/^@emotion/",
+                "/^@mui/",
+                "/^@/pages/",
+                "/^@/components/",
+                "/^@/public/",
+                "/^@/styles/",
+                [
+                    "module"
+                ],
+                [
+                    "/^~//"
+                ],
+                [
+                    "parent",
+                    "sibling",
+                    "index"
+                ]
+            ],
               "alphabetize": { "order": "asc", "ignoreCase": true }
             }
           ]

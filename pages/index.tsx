@@ -1,16 +1,16 @@
 import React from 'react';
 
-import Link from 'next/link';
+import { NextPage } from 'next';
 
-import Layout from '@/components/Layout';
+import { Box, Button } from '@mui/material';
 
-const IndexPage = () => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">About</Link>
-    </p>
-  </Layout>
+const IndexPage: NextPage = () => (
+  <Box>
+    <Button variant="contained"
+      color="primary">
+      Hello World
+    </Button>
+  </Box>
 );
 
 export default IndexPage;
