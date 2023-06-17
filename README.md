@@ -19,6 +19,9 @@ Material Design é um sistema de design apoiado em código-fonte aberto que auxi
 `Eslint-plugin-unused-imports`</br>
 É um plugin para o Eslint, uma ferramenta popular de linting de código JavaScript. Esse plugin específico é projetado para ajudar a identificar e remover importações não utilizadas em seu código. Com ele você pode garantir que todas as importações em seu código sejam realmente usadas, evitando importações desnecessárias e reduzindo o tamanho do bundle do seu aplicativo, além de que você pode manter seu código mais limpo e livre de importações desnecessárias, o que contribui para uma melhor manutenibilidade e desempenho do seu aplicativo JavaScript.
 
+`RTL React Testing Library`</br>
+É uma biblioteca de testes para React que oferece uma abordagem user-centric (centrada no usuário) para testes de componentes. Ela é baseada na React Testing Library, mas com suporte e recursos adicionais para testar aplicativos que têm suporte a idiomas RTL (Right-to-Left). Essa biblioteca permite testar componentes React de forma mais realista, simulando a interação do usuário e verificando se o comportamento esperado está sendo exibido corretamente na interface do usuário. Com a RTL React Testing Library, você pode escrever testes que se concentram em como os componentes são usados pelos usuários finais, em vez de se concentrarem nos detalhes de implementação internos.
+
 `Commitizen`</br>
 É uma ferramenta de linha de comando que facilita a criação de mensagens de commit padronizadas e semânticas. Ele visa promover uma boa prática de mensagens de commit, seguindo convenções definidas, como o [Conventional Commits](https://www.conventionalcommits.org/), que ajuda a manter um histórico de commit mais legível, organizado e compreensível.
 
