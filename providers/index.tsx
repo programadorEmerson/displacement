@@ -14,6 +14,7 @@ import theme from '@/styles/theme';
 
 import { ClientsProvider } from '@/contexts/client';
 import { ConductorsProvider } from '@/contexts/conductor';
+import { DisplacementsProvider } from '@/contexts/displacement';
 
 export interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
@@ -32,27 +33,29 @@ export const ProvidersApp = ({ children, props }: ProvidersAppProps) => {
   return (
     <ClientsProvider>
       <ConductorsProvider>
-        <CacheProvider
-          value={emotionCache}
-        >
-          <LocalizationProvider
-            dateAdapter={AdapterDayjs}
-            adapterLocale="pt-br"
+        <DisplacementsProvider>
+          <CacheProvider
+            value={emotionCache}
           >
-            <ThemeProvider
-              theme={theme}
+            <LocalizationProvider
+              dateAdapter={AdapterDayjs}
+              adapterLocale="pt-br"
             >
-              <CssBaseline />
-              <Head>
-                <meta
-                  name="viewport"
-                  content="initial-scale=1, width=device-width"
-                />
-              </Head>
-              {children}
-            </ThemeProvider>
-          </LocalizationProvider>
-        </CacheProvider>
+              <ThemeProvider
+                theme={theme}
+              >
+                <CssBaseline />
+                <Head>
+                  <meta
+                    name="viewport"
+                    content="initial-scale=1, width=device-width"
+                  />
+                </Head>
+                {children}
+              </ThemeProvider>
+            </LocalizationProvider>
+          </CacheProvider>
+        </DisplacementsProvider>
       </ConductorsProvider>
     </ClientsProvider>
   );

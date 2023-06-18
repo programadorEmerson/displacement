@@ -6,17 +6,17 @@ import { Button } from '@mui/material';
 
 import Layout from '@/components/Layout';
 
-import useConductorContext from '@/hooks/useConductorContext';
+import useDisplacementContext from '@/hooks/useDisplacementContext';
 
 const IndexPage: NextPage = () => {
-  const { getConductors } = useConductorContext();
+  const { getDisplacements } = useDisplacementContext();
 
   return (
     <Layout title='Home Page'>
       <Button
         variant="contained"
         color="primary"
-        onClick={getConductors}
+        onClick={getDisplacements}
       >
         Hello World
       </Button>
