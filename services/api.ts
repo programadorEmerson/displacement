@@ -2,7 +2,7 @@ import axios, { type AxiosRequestConfig, type AxiosInstance, type AxiosError } f
 
 import { parseCookies } from 'nookies';
 
-export class ApiService {
+class ApiService {
   constructor (
     private readonly token = parseCookies()[`${process.env.NEXT_PUBLIC_TOKEN_PREFIX ?? 'test-dev'}`],
     private readonly apiConfig = axios.create({
@@ -67,3 +67,5 @@ export class ApiService {
     return this.token;
   }
 }
+
+export default ApiService;
