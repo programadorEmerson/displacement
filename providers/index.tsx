@@ -13,6 +13,7 @@ import createEmotionCache from '@/styles/createEmotionCache';
 import theme from '@/styles/theme';
 
 import { ClientsProvider } from '@/contexts/client';
+import { ConductorsProvider } from '@/contexts/conductor';
 
 export interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
@@ -30,28 +31,29 @@ export const ProvidersApp = ({ children, props }: ProvidersAppProps) => {
 
   return (
     <ClientsProvider>
-      <CacheProvider
-        value={emotionCache}
-      >
-        <LocalizationProvider
-          dateAdapter={AdapterDayjs}
-          adapterLocale="pt-br"
+      <ConductorsProvider>
+        <CacheProvider
+          value={emotionCache}
         >
-          <ThemeProvider
-            theme={theme}
+          <LocalizationProvider
+            dateAdapter={AdapterDayjs}
+            adapterLocale="pt-br"
           >
-            <CssBaseline />
-            <Head>
-              <meta
-                name="viewport"
-                content="initial-scale=1, width=device-width"
-              />
-            </Head>
-            {children}
-          </ThemeProvider>
-        </LocalizationProvider>
-      </CacheProvider>
-
+            <ThemeProvider
+              theme={theme}
+            >
+              <CssBaseline />
+              <Head>
+                <meta
+                  name="viewport"
+                  content="initial-scale=1, width=device-width"
+                />
+              </Head>
+              {children}
+            </ThemeProvider>
+          </LocalizationProvider>
+        </CacheProvider>
+      </ConductorsProvider>
     </ClientsProvider>
   );
 };

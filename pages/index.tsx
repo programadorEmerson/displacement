@@ -6,17 +6,17 @@ import { Button } from '@mui/material';
 
 import Layout from '@/components/Layout';
 
-import useClientContext from '@/hooks/useClientContext';
+import useConductorContext from '@/hooks/useConductorContext';
 
 const IndexPage: NextPage = () => {
-  const { getClients } = useClientContext();
+  const { getConductors } = useConductorContext();
 
   return (
     <Layout title='Home Page'>
       <Button
         variant="contained"
         color="primary"
-        onClick={getClients}
+        onClick={getConductors}
       >
         Hello World
       </Button>
