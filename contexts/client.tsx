@@ -17,6 +17,7 @@ const ClientsProvider = ({ children }: { children: ReactNode }) => {
 
   const getClients = useCallback(async () => {
     try {
+      setFetching(true);
       const api = new ApiService();
       const response = await api.get<Client[]>('Cliente');
       setClients(response);
@@ -25,6 +26,8 @@ const ClientsProvider = ({ children }: { children: ReactNode }) => {
         icon: 'warning',
         text: 'Ocorreu um erro ao buscar os clientes.'
       });
+    } finally {
+      setFetching(false);
     }
   }, []);
 
