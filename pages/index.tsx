@@ -6,17 +6,17 @@ import { Button } from '@mui/material';
 
 import Layout from '@/components/Layout';
 
-import useDisplacementContext from '@/hooks/useDisplacementContext';
+import useVehicleContext from '@/hooks/useVehicleContext';
 
 const IndexPage: NextPage = () => {
-  const { getDisplacements } = useDisplacementContext();
+  const { getVehicles } = useVehicleContext();
 
   return (
     <Layout title='Home Page'>
       <Button
         variant="contained"
         color="primary"
-        onClick={getDisplacements}
+        onClick={getVehicles}
       >
         Hello World
       </Button>
