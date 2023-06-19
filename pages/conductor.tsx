@@ -6,7 +6,7 @@ import { Delete, Edit } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 
-import DialogClient from '@/components/Client/DialogData';
+import DialogConductor from '@/components/Conductor/DialogData';
 import { CustomNoResultsOverlay } from '@/components/DataGrid/CustomNoResultsOverlay';
 import { CustomToolbar } from '@/components/DataGrid/CustomToolbar';
 import LoadingProgress from '@/components/DataGrid/LoadingProgress';
@@ -16,31 +16,32 @@ import Layout from '@/components/Layout';
 import { Loading } from '@/components/Loading';
 import TitleSection from '@/components/TitleSection';
 
-import { StyledPaper } from '@/styles/pages/client';
+import { StyledPaper } from '@/styles/pages/conductor';
 import {
   StyledButtonContainer, StyledContainerPage,
   StyledDataGrid, StyledLimitPage
 } from '@/styles/pages/shared.styles';
 
-import { Client } from '@/contexts/client';
+import { Conductor } from '@/contexts/conductor';
 
-import useClientContext from '@/hooks/useClientContext';
+import useConductorContext from '@/hooks/useConductorContext';
 
+import { format } from 'date-fns';
 import returnColorRow from 'utils/returnColorRow';
 
 const itemPerPage = 10;
 
-const Client: NextPage = () => {
+const Conductor: NextPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const {
-    getClients, clients, handleSelectClient,
-    dataExport, fetching, deleteClient, handleShowDialogClient
-  } = useClientContext();
+    getConductors, conductors, handleSelectConductor,
+    dataExport, fetching, deleteConductor, handleShowDialogConductor
+  } = useConductorContext();
 
   useEffect(() => {
-    getClients();
-  }, [getClients]);
+    getConductors();
+  }, [getConductors]);
 
   const columns: GridColDef[] = [
     {
@@ -54,10 +55,10 @@ const Client: NextPage = () => {
       disableExport: true,
       width: 150,
       renderCell: ({ row }) => {
-        const { id } = row as Client;
+        const { id } = row as Conductor;
         return (
           <StyledButtonContainer>
-            <IconButton onClick={() => handleSelectClient(id)} >
+            <IconButton onClick={() => handleSelectConductor(id)} >
               <TooltipCustom
                 title="Editar"
                 placement="right"
@@ -66,7 +67,7 @@ const Client: NextPage = () => {
                 <Edit />
               </TooltipCustom>
             </IconButton>
-            <IconButton onClick={() => deleteClient(id)} >
+            <IconButton onClick={() => deleteConductor(id)} >
               <TooltipCustom
                 title="Excluir"
                 placement="right"
@@ -81,7 +82,7 @@ const Client: NextPage = () => {
     },
     {
       field: 'nome',
-      headerName: 'Cliente',
+      headerName: 'Conductor',
       width: 330,
       type: 'string',
       editable: false,
@@ -89,68 +90,48 @@ const Client: NextPage = () => {
       headerAlign: 'center'
     },
     {
-      field: 'logradouro',
-      headerName: 'Endereço',
+      field: 'numeroHabilitacao',
+      headerName: 'Nro. Habilitação',
       width: 330,
       type: 'string',
       editable: false,
       align: 'center',
-      headerAlign: 'center',
-      renderCell: ({ row }) => {
-        const { logradouro, numero, bairro } = row as Client;
-        return (
-          <span>
-            {`${logradouro}, ${numero} - ${bairro}`}
-          </span>
-        );
-      },
+      headerAlign: 'center'
     },
     {
-      field: 'cidade',
-      headerName: 'Cidade',
+      field: 'catergoriaHabilitacao',
+      headerName: 'Categoria',
+      width: 250,
+      type: 'string',
+      editable: false,
+      align: 'center',
+      headerAlign: 'center'
+    },
+    {
+      field: 'vencimentoHabilitacao',
+      headerName: 'Vencimento',
       width: 250,
       type: 'string',
       editable: false,
       align: 'center',
       headerAlign: 'center',
-      renderCell: ({ row }) => {
-        const { cidade, uf } = row as Client;
-        return (
-          <span>
-            {`${cidade} - ${uf}`}
-          </span>
-        );
-      },
-    },
-    {
-      field: 'numeroDocumento',
-      headerName: 'Documento',
-      width: 250,
-      type: 'string',
-      editable: false,
-      align: 'center',
-      headerAlign: 'center',
-      renderCell: ({ row }) => {
-        const { numeroDocumento, tipoDocumento } = row as Client;
-        return (
-          <span>
-            {`${tipoDocumento}: ${numeroDocumento}`}
-          </span>
-        );
+      valueFormatter: ({ value }) => {
+        const date = new Date(value as string);
+        return format(new Date(date), 'dd/MM/yyyy');
       },
     },
   ];
 
   return (
-    <Layout title='Clientes'>
+    <Layout title='Condutores'>
       <Loading trigger={fetching} message="Por favor aguarde..." />
       <StyledContainerPage>
         <StyledLimitPage>
-          <DialogClient />
-          <TitleSection title='Clientes' showDialog={handleShowDialogClient} />
+          <DialogConductor />
+          <TitleSection title='Condutores' showDialog={handleShowDialogConductor} />
           <StyledPaper elevation={3}>
             <StyledDataGrid
-              rows={clients}
+              rows={conductors}
               columns={columns}
               pageSize={itemPerPage}
               page={currentPage}
@@ -161,14 +142,14 @@ const Client: NextPage = () => {
                 Toolbar: () => {
                   return CustomToolbar({
                     data: dataExport,
-                    exportFileName: 'Lista de clientes',
+                    exportFileName: 'Lista de condutores',
                   });
                 },
                 Footer: () => {
                   return (
                     <PaginationFooter
                       currentPage={currentPage}
-                      numberOfPages={Math.ceil(clients.length / itemPerPage)}
+                      numberOfPages={Math.ceil(conductors.length / itemPerPage)}
                       setCurrentPage={setCurrentPage}
                     />
                   );
@@ -190,4 +171,4 @@ const Client: NextPage = () => {
   );
 };
 
-export default Client;
+export default Conductor;

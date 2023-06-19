@@ -104,7 +104,6 @@ const ClientsProvider = ({ children }: { children: ReactNode }) => {
         text: 'Cliente editado com sucesso.'
       });
       setOpenDialogClient(false);
-      console.log('looping');
     } catch (error) {
       AlertNotification({
         icon: 'warning',
