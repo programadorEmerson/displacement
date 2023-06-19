@@ -29,6 +29,7 @@
       "@/contexts/*": ["contexts/*"],
       "@/providers/*": ["providers/*"],
       "@/interfaces/*": ["interfaces/*"],
+      "@/utils/*": ["utils/*"],
       "@/services": ["services/*"]
     }
   },

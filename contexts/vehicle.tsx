@@ -21,7 +21,6 @@ const VehiclesProvider = ({ children }: { children: ReactNode }) => {
       const api = new ApiService();
       const response = await api.get<Vehicle[]>('Veiculo');
       setVehicles(response);
-      console.log(response);
     } catch (error) {
       AlertNotification({
         icon: 'warning',
@@ -84,7 +83,7 @@ const VehiclesProvider = ({ children }: { children: ReactNode }) => {
     try {
       setFetching(true);
       const api = new ApiService();
-      await api.delete(`Veiculo/${id}`);
+      await api.delete(`Veiculo/${id}`, id);
       await getVehicles();
     } catch (error) {
       AlertNotification({

@@ -1,5 +1,8 @@
 enum MenuNames {
-  CLIENT = 'CLIENTE'
+  CLIENT = 'CLIENTE',
+  CONDUCTOR = 'CONDUTOR',
+  VEHICLE = 'VEÍCULO',
+  DISPLACEMENT = 'DESLOCAMENTO',
 }
 
 export default MenuNames;

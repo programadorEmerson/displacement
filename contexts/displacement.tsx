@@ -21,7 +21,6 @@ const DisplacementsProvider = ({ children }: { children: ReactNode }) => {
       const api = new ApiService();
       const response = await api.get<Displacement[]>('Deslocamento');
       setDisplacements(response);
-      console.log(response);
     } catch (error) {
       AlertNotification({
         icon: 'warning',
@@ -84,7 +83,7 @@ const DisplacementsProvider = ({ children }: { children: ReactNode }) => {
     try {
       setFetching(true);
       const api = new ApiService();
-      await api.delete(`Deslocamento/${id}`);
+      await api.delete(`Deslocamento/${id}`, id);
       await getDisplacements();
     } catch (error) {
       AlertNotification({
