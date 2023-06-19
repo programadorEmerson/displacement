@@ -56,7 +56,7 @@ const validationSchema = yup.object<Client>({
   uf: yup.string().required('Informe o estado'),
 });
 
-const DialogClient: FC = () => {
+const DialogConductor: FC = () => {
   const {
     openDialogClient, handleShowDialogClient,
     client, fetching, createClient, updateClient
@@ -185,4 +185,4 @@ const DialogClient: FC = () => {
   );
 };
 
-export default DialogClient;
+export default DialogConductor;

@@ -5,16 +5,15 @@ import { Button, Grid, Typography } from '@mui/material';
 
 import { ItemGrid } from '@/styles/pages/shared.styles';
 
-import useClientContext from '@/hooks/useClientContext';
 import useDeviceType from '@/hooks/useDeviceType';
 
 type TitleSectionProps = {
   title: string;
+  showDialog: (open: boolean) => void;
 }
 
-const TitleSection: FC<TitleSectionProps> = ({ title }) => {
+const TitleSection: FC<TitleSectionProps> = ({ title, showDialog }) => {
   const { isMobile } = useDeviceType();
-  const { handleShowDialogClient } = useClientContext();
   return (
     <Grid container spacing={1}>
       <Grid item xs={6}>
@@ -27,8 +26,7 @@ const TitleSection: FC<TitleSectionProps> = ({ title }) => {
       <Grid item xs={6}>
         <ItemGrid sx={{ padding: '1rem' }} justify='flex-end'>
           <Button
-            onClick={() =>
-              handleShowDialogClient(true)}
+            onClick={() => showDialog(true)}
             startIcon={<Add />} variant="outlined"
           >
             {`Adicionar${isMobile ? '' : ' novo'}`}
