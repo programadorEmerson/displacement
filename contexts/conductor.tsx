@@ -83,7 +83,7 @@ const ConductorsProvider = ({ children }: { children: ReactNode }) => {
     try {
       setFetching(true);
       const api = new ApiService();
-      await api.delete(`Condutor/${id}`);
+      await api.delete(`Condutor/${id}`, id);
       await getConductors();
     } catch (error) {
       AlertNotification({
