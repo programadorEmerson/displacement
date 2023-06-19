@@ -6,7 +6,6 @@ import { Delete, Edit } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 
-import DialogClient from '@/components/Client/DialogData';
 import { CustomNoResultsOverlay } from '@/components/DataGrid/CustomNoResultsOverlay';
 import { CustomToolbar } from '@/components/DataGrid/CustomToolbar';
 import LoadingProgress from '@/components/DataGrid/LoadingProgress';
@@ -15,32 +14,33 @@ import { TooltipCustom } from '@/components/DataGrid/styled';
 import Layout from '@/components/Layout';
 import { Loading } from '@/components/Loading';
 import TitleSection from '@/components/TitleSection';
+import DialogVehicle from '@/components/Vehicle/DialogData';
 
-import { StyledPaper } from '@/styles/pages/client';
 import {
   StyledButtonContainer, StyledContainerPage,
   StyledDataGrid, StyledLimitPage
 } from '@/styles/pages/shared.styles';
+import { StyledPaper } from '@/styles/pages/vehicle';
 
-import { Client } from '@/contexts/client';
+import { Vehicle } from '@/contexts/vehicle';
 
-import useClientContext from '@/hooks/useClientContext';
+import useVehicleContext from '@/hooks/useVehicleContext';
 
 import returnColorRow from 'utils/returnColorRow';
 
 const itemPerPage = 10;
 
-const Client: NextPage = () => {
+const Vehicle: NextPage = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
   const {
-    getClients, clients, handleSelectClient,
-    dataExport, fetching, deleteClient, handleShowDialogClient
-  } = useClientContext();
+    getVehicles, vehicles, handleSelectVehicle,
+    dataExport, fetching, deleteVehicle, handleShowDialogVehicle
+  } = useVehicleContext();
 
   useEffect(() => {
-    getClients();
-  }, [getClients]);
+    getVehicles();
+  }, [getVehicles]);
 
   const columns: GridColDef[] = [
     {
@@ -54,10 +54,10 @@ const Client: NextPage = () => {
       disableExport: true,
       width: 150,
       renderCell: ({ row }) => {
-        const { id } = row as Client;
+        const { id } = row as Vehicle;
         return (
           <StyledButtonContainer>
-            <IconButton onClick={() => handleSelectClient(id)} >
+            <IconButton onClick={() => handleSelectVehicle(id)} >
               <TooltipCustom
                 title="Editar"
                 placement="right"
@@ -66,7 +66,7 @@ const Client: NextPage = () => {
                 <Edit />
               </TooltipCustom>
             </IconButton>
-            <IconButton onClick={() => deleteClient(id)} >
+            <IconButton onClick={() => deleteVehicle(id)} >
               <TooltipCustom
                 title="Excluir"
                 placement="right"
@@ -80,8 +80,8 @@ const Client: NextPage = () => {
       }
     },
     {
-      field: 'nome',
-      headerName: 'Cliente',
+      field: 'placa',
+      headerName: 'Placa',
       width: 330,
       type: 'string',
       editable: false,
@@ -89,68 +89,44 @@ const Client: NextPage = () => {
       headerAlign: 'center'
     },
     {
-      field: 'logradouro',
-      headerName: 'Endereço',
+      field: 'marcaModelo',
+      headerName: 'Marca/Modelo',
       width: 330,
       type: 'string',
       editable: false,
       align: 'center',
-      headerAlign: 'center',
-      renderCell: ({ row }) => {
-        const { logradouro, numero, bairro } = row as Client;
-        return (
-          <span>
-            {`${logradouro}, ${numero} - ${bairro}`}
-          </span>
-        );
-      },
+      headerAlign: 'center'
     },
     {
-      field: 'cidade',
-      headerName: 'Cidade',
+      field: 'anoFabricacao',
+      headerName: 'Ano',
       width: 250,
-      type: 'string',
+      type: 'number',
       editable: false,
       align: 'center',
-      headerAlign: 'center',
-      renderCell: ({ row }) => {
-        const { cidade, uf } = row as Client;
-        return (
-          <span>
-            {`${cidade} - ${uf}`}
-          </span>
-        );
-      },
+      headerAlign: 'center'
     },
     {
-      field: 'numeroDocumento',
-      headerName: 'Documento',
+      field: 'kmAtual',
+      headerName: 'KM Atual',
       width: 250,
-      type: 'string',
+      type: 'number',
       editable: false,
       align: 'center',
-      headerAlign: 'center',
-      renderCell: ({ row }) => {
-        const { numeroDocumento, tipoDocumento } = row as Client;
-        return (
-          <span>
-            {`${tipoDocumento}: ${numeroDocumento}`}
-          </span>
-        );
-      },
+      headerAlign: 'center'
     },
   ];
 
   return (
-    <Layout title='Clientes'>
+    <Layout title='Condutores'>
       <Loading trigger={fetching} message="Por favor aguarde..." />
       <StyledContainerPage>
         <StyledLimitPage>
-          <DialogClient />
-          <TitleSection title='Clientes' showDialog={handleShowDialogClient} />
+          <DialogVehicle />
+          <TitleSection title='Condutores' showDialog={handleShowDialogVehicle} />
           <StyledPaper elevation={3}>
             <StyledDataGrid
-              rows={clients}
+              rows={vehicles}
               columns={columns}
               pageSize={itemPerPage}
               page={currentPage}
@@ -161,25 +137,25 @@ const Client: NextPage = () => {
                 Toolbar: () => {
                   return CustomToolbar({
                     data: dataExport,
-                    exportFileName: 'Lista de clientes',
+                    exportFileName: 'Lista de veículos',
                   });
                 },
                 Footer: () => {
                   return (
                     <PaginationFooter
                       currentPage={currentPage}
-                      numberOfPages={Math.ceil(clients.length / itemPerPage)}
+                      numberOfPages={Math.ceil(vehicles.length / itemPerPage)}
                       setCurrentPage={setCurrentPage}
                     />
                   );
                 },
                 NoResultsOverlay: () => {
                   if (fetching) return <LoadingProgress />;
-                  return <CustomNoResultsOverlay label="Nenhum cliente localizado" />;
+                  return <CustomNoResultsOverlay label="Nenhum veículo localizado" />;
                 },
                 NoRowsOverlay: () => {
                   if (fetching) return <LoadingProgress />;
-                  return <CustomNoResultsOverlay label="Nenhum cliente localizado" />;
+                  return <CustomNoResultsOverlay label="Nenhum veículo localizado" />;
                 }
               }}
             />
@@ -190,4 +166,4 @@ const Client: NextPage = () => {
   );
 };
 
-export default Client;
+export default Vehicle;

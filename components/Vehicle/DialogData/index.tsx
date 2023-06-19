@@ -9,15 +9,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Slide from '@mui/material/Slide';
 import { type TransitionProps } from '@mui/material/transitions';
 
-import InputDate from '@/components/Inputs/InputDate';
 import InputNumber from '@/components/Inputs/InputNumber';
 import InputText from '@/components/Inputs/InputText';
 
 import { FormDefault, ItemGrid } from '@/styles/pages/shared.styles';
 
-import { Conductor } from '@/contexts/conductor';
+import { Vehicle } from '@/contexts/vehicle';
 
-import useConductorContext from '@/hooks/useConductorContext';
+import useVehicleContext from '@/hooks/useVehicleContext';
 
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -32,28 +31,30 @@ const Transition = forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const initialValues: Conductor = {
+const initialValues: Vehicle = {
   id: 0,
-  nome: '',
-  numeroHabilitacao: '',
-  catergoriaHabilitacao: '',
-  vencimentoHabilitacao: new Date().toISOString(),
+  placa: '',
+  marcaModelo: '',
+  anoFabricacao: 0,
+  kmAtual: 0,
 };
 
-const validationSchema = yup.object<Conductor>({
-  nome: yup.string().required('Informe o nome do conductor'),
-  numeroHabilitacao: yup.string().required('Informe o número da habilitação'),
-  catergoriaHabilitacao: yup.string().required('Informe a categoria da habilitação'),
-  vencimentoHabilitacao: yup.string().required('Informe a data de vencimento da habilitação'),
+const validationSchema = yup.object<Vehicle>({
+  placa: yup.string().required('Informe a placa do veículo'),
+  marcaModelo: yup.string().required('Informe a marca e modelo do veículo'),
+  anoFabricacao: yup.number()
+    .min(1900, 'Informe um ano maior que 1900').required('Informe o ano de fabricação do veículo'),
+  kmAtual: yup.number()
+    .min(0, 'Informe um valor maior que 0').required('Informe a quilometragem atual do veículo'),
 });
 
-const DialogConductor: FC = () => {
+const DialogVehicle: FC = () => {
   const {
-    openDialogConductor, handleShowDialogConductor,
-    conductor, fetching, createConductor, updateConductor
-  } = useConductorContext();
+    openDialogVehicle, handleShowDialogVehicle,
+    vehicle, fetching, createVehicle, updateVehicle
+  } = useVehicleContext();
 
-  const editMode = Boolean(conductor);
+  const editMode = Boolean(vehicle);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -61,62 +62,61 @@ const DialogConductor: FC = () => {
     initialValues,
     onSubmit: (values) => {
       if (editMode) {
-        return updateConductor(values.id, values);
+        return updateVehicle(values.id, values);
       }
-      createConductor(values);
+      createVehicle(values);
     }
   });
 
   useEffect(() => {
-    if (conductor) {
-      formik.setValues(conductor);
+    if (vehicle) {
+      formik.setValues(vehicle);
     }
-  }, [conductor]);
+  }, [vehicle]);
 
   useEffect(() => {
-    if (!openDialogConductor) formik.resetForm();
-  }, [openDialogConductor]);
+    if (!openDialogVehicle) formik.resetForm();
+  }, [openDialogVehicle]);
 
   return (
     <Dialog
       keepMounted
       fullWidth
       maxWidth="md"
-      open={openDialogConductor}
+      open={openDialogVehicle}
       TransitionComponent={Transition}
-      onClose={() => handleShowDialogConductor(false)}
+      onClose={() => handleShowDialogVehicle(false)}
       aria-describedby="alert-dialog-slide-description"
     >
       <DialogTitle>
-        {editMode ? `Editar condutor: ${formik.values.nome}` : 'Novo condutor'}
+        {editMode ? `Editar veículo: ${formik.values.placa}` : 'Novo veículo'}
       </DialogTitle>
       <DialogContent>
         <FormDefault onSubmit={formik.handleSubmit} onBlur={formik.handleBlur}>
           <Grid container spacing={1}>
             <InputText formik={formik}
-              keyName='nome'
-              label="Informe seu nome"
-              isDisabled={fetching || editMode}
-              sm={8}
-            />
-            <InputNumber
-              formik={formik}
-              keyName='numeroHabilitacao'
-              label="Informe o número da habilitação"
+              keyName='placa'
+              label="Informe a placa"
               isDisabled={fetching || editMode}
               sm={4}
             />
             <InputText formik={formik}
-              keyName='catergoriaHabilitacao'
-              label="Informe a categoria da habilitação"
+              keyName='marcaModelo'
+              label="Informe a marca e modelo"
+              isDisabled={fetching}
+              sm={8}
+            />
+            <InputNumber
+              formik={formik}
+              keyName='anoFabricacao'
+              label="Informe o ano de fabricação"
               isDisabled={fetching}
               sm={4}
             />
-            <InputDate
+            <InputNumber
               formik={formik}
-              keyName='vencimentoHabilitacao'
-              label="Vencimento da habilitação"
-              enableFutureDates
+              keyName='kmAtual'
+              label="Informe a quilometragem"
               isDisabled={fetching}
               sm={4}
             />
@@ -139,4 +139,4 @@ const DialogConductor: FC = () => {
   );
 };
 
-export default DialogConductor;
+export default DialogVehicle;

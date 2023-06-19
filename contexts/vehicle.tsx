@@ -1,12 +1,14 @@
-import { ReactNode, createContext, useCallback, useMemo, useState } from 'react';
+import { ReactNode, createContext, useCallback, useEffect, useMemo, useState } from 'react';
 
 import AlertNotification from '@/components/Notification/AlertNotificationCenter';
 
 import RawVehicle, { VehicleContextProps } from '@/interfaces/vehicle';
 
+import generateCsvValues from '@/utils/generateCsvValues';
+
 import ApiService from '../services/api';
 
-type Vehicle = { id: number } & RawVehicle;
+export type Vehicle = { id: number } & RawVehicle;
 
 const VehiclesContext = createContext({} as VehicleContextProps);
 
@@ -14,6 +16,18 @@ const VehiclesProvider = ({ children }: { children: ReactNode }) => {
   const [fetching, setFetching] = useState(false);
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   const [vehicle, setVehicle] = useState<Vehicle | null>(null);
+  const [dataExport, setDataExport] = useState<Record<string, string>[]>([]);
+  const [openDialogVehicle, setOpenDialogVehicle] = useState(false);
+
+  const handleShowDialogVehicle = useCallback((value: boolean) => {
+    setOpenDialogVehicle(value);
+  }, []);
+
+  const handleSelectVehicle = useCallback((id: number) => {
+    const selected = vehicles.find((item) => item.id === id);
+    setVehicle(selected || null);
+    handleShowDialogVehicle(true);
+  }, [handleShowDialogVehicle, vehicles]);
 
   const getVehicles = useCallback(async () => {
     try {
@@ -21,6 +35,11 @@ const VehiclesProvider = ({ children }: { children: ReactNode }) => {
       const api = new ApiService();
       const response = await api.get<Vehicle[]>('Veiculo');
       setVehicles(response);
+      const exportData = response.map((client) => {
+        const updated = generateCsvValues(client);
+        return updated;
+      });
+      setDataExport(exportData);
     } catch (error) {
       AlertNotification({
         icon: 'warning',
@@ -37,6 +56,11 @@ const VehiclesProvider = ({ children }: { children: ReactNode }) => {
       const api = new ApiService();
       await api.post<RawVehicle>('Veiculo', vehicle);
       await getVehicles();
+      AlertNotification({
+        icon: 'success',
+        text: 'Veículo cadastrado com sucesso.'
+      });
+      setOpenDialogVehicle(false);
     } catch (error) {
       AlertNotification({
         icon: 'warning',
@@ -68,7 +92,18 @@ const VehiclesProvider = ({ children }: { children: ReactNode }) => {
       setFetching(true);
       const api = new ApiService();
       await api.put<RawVehicle>(`Veiculo/${id}`, vehicle);
-      await getVehicles();
+      const updated = vehicles.map((item) => {
+        if (item.id === id) {
+          return { ...item, ...vehicle };
+        }
+        return item;
+      });
+      setVehicles(updated);
+      AlertNotification({
+        icon: 'success',
+        text: 'Veículo editado com sucesso.'
+      });
+      setOpenDialogVehicle(false);
     } catch (error) {
       AlertNotification({
         icon: 'warning',
@@ -77,14 +112,19 @@ const VehiclesProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setFetching(false);
     }
-  }, [getVehicles]);
+  }, [vehicles]);
 
   const deleteVehicle = useCallback(async (id: number) => {
     try {
       setFetching(true);
       const api = new ApiService();
       await api.delete(`Veiculo/${id}`, id);
-      await getVehicles();
+      const updated = vehicles.filter((item) => item.id !== id);
+      setVehicles(updated);
+      AlertNotification({
+        icon: 'success',
+        text: 'Veiculo deletado com sucesso.'
+      });
     } catch (error) {
       AlertNotification({
         icon: 'warning',
@@ -93,14 +133,22 @@ const VehiclesProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setFetching(false);
     }
-  }, [getVehicles]);
+  }, [vehicles]);
+
+  useEffect(() => {
+    if (!openDialogVehicle) {
+      setVehicle(null);
+    }
+  }, [openDialogVehicle]);
 
   const values = useMemo(() => ({
     vehicles, getVehicles, getVehicle, deleteVehicle,
-    vehicle, createVehicle, updateVehicle, fetching
+    dataExport, handleShowDialogVehicle, vehicle, openDialogVehicle,
+    createVehicle, updateVehicle, fetching, handleSelectVehicle
   }), [
     vehicles, getVehicles, getVehicle, deleteVehicle,
-    vehicle, createVehicle, updateVehicle, fetching
+    dataExport, handleShowDialogVehicle, vehicle, openDialogVehicle,
+    createVehicle, updateVehicle, fetching, handleSelectVehicle
   ]);
 
   return (

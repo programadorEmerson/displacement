@@ -121,7 +121,12 @@ const ConductorsProvider = ({ children }: { children: ReactNode }) => {
       setFetching(true);
       const api = new ApiService();
       await api.delete(`Condutor/${id}`, id);
-      await getConductors();
+      const updated = conductors.filter((item) => item.id !== id);
+      setConductors(updated);
+      AlertNotification({
+        icon: 'success',
+        text: 'Condutor deletado com sucesso.'
+      });
     } catch (error) {
       AlertNotification({
         icon: 'warning',
@@ -130,7 +135,7 @@ const ConductorsProvider = ({ children }: { children: ReactNode }) => {
     } finally {
       setFetching(false);
     }
-  }, [getConductors]);
+  }, [conductors]);
 
   useEffect(() => {
     if (!openDialogConductor) {
