@@ -156,11 +156,11 @@ const Conductor: NextPage = () => {
                 },
                 NoResultsOverlay: () => {
                   if (fetching) return <LoadingProgress />;
-                  return <CustomNoResultsOverlay label="Nenhum pagamento localizado" />;
+                  return <CustomNoResultsOverlay label="Nenhum condutor localizado" />;
                 },
                 NoRowsOverlay: () => {
                   if (fetching) return <LoadingProgress />;
-                  return <CustomNoResultsOverlay label="Nenhum pagamento localizado" />;
+                  return <CustomNoResultsOverlay label="Nenhum condutor localizado" />;
                 }
               }}
             />
