@@ -15,7 +15,7 @@ import InputText from '@/components/Inputs/InputText';
 
 import { FormDefault, ItemGrid } from '@/styles/pages/shared.styles';
 
-import { Conductor } from '@/contexts/conductor';
+import { ConductorContext } from '@/contexts/conductor';
 
 import useConductorContext from '@/hooks/useConductorContext';
 
@@ -32,7 +32,7 @@ const Transition = forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const initialValues: Conductor = {
+const initialValues: ConductorContext = {
   id: 0,
   nome: '',
   numeroHabilitacao: '',
@@ -40,7 +40,7 @@ const initialValues: Conductor = {
   vencimentoHabilitacao: new Date().toISOString(),
 };
 
-const validationSchema = yup.object<Conductor>({
+const validationSchema = yup.object<ConductorContext>({
   nome: yup.string().required('Informe o nome do conductor'),
   numeroHabilitacao: yup.string().required('Informe o número da habilitação'),
   catergoriaHabilitacao: yup.string().required('Informe a categoria da habilitação'),

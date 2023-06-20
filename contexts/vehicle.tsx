@@ -8,14 +8,14 @@ import generateCsvValues from '@/utils/generateCsvValues';
 
 import ApiService from '../services/api';
 
-export type Vehicle = { id: number } & RawVehicle;
+export type VehicleContext = { id: number } & RawVehicle;
 
 const VehiclesContext = createContext({} as VehicleContextProps);
 
 const VehiclesProvider = ({ children }: { children: ReactNode }) => {
   const [fetching, setFetching] = useState(false);
-  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
-  const [vehicle, setVehicle] = useState<Vehicle | null>(null);
+  const [vehicles, setVehicles] = useState<VehicleContext[]>([]);
+  const [vehicle, setVehicle] = useState<VehicleContext | null>(null);
   const [dataExport, setDataExport] = useState<Record<string, string>[]>([]);
   const [openDialogVehicle, setOpenDialogVehicle] = useState(false);
 
@@ -33,7 +33,7 @@ const VehiclesProvider = ({ children }: { children: ReactNode }) => {
     try {
       setFetching(true);
       const api = new ApiService();
-      const response = await api.get<Vehicle[]>('Veiculo');
+      const response = await api.get<VehicleContext[]>('Veiculo');
       setVehicles(response);
       const exportData = response.map((client) => {
         const updated = generateCsvValues(client);
@@ -71,17 +71,19 @@ const VehiclesProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [getVehicles]);
 
-  const getVehicle = useCallback(async (id: number) => {
+  const getVehicle = useCallback(async (id: number): Promise<VehicleContext | null> => {
     try {
       setFetching(true);
       const api = new ApiService();
-      const response = await api.get<Vehicle>(`Veiculo/${id}`);
+      const response = await api.get<VehicleContext>(`Veiculo/${id}`);
       setVehicle(response);
+      return response;
     } catch (error) {
       AlertNotification({
         icon: 'warning',
         text: 'Ocorreu um erro ao buscar o veículo.'
       });
+      return null;
     } finally {
       setFetching(false);
     }

@@ -14,7 +14,7 @@ import InputText from '@/components/Inputs/InputText';
 
 import { FormDefault, ItemGrid } from '@/styles/pages/shared.styles';
 
-import { Vehicle } from '@/contexts/vehicle';
+import { VehicleContext } from '@/contexts/vehicle';
 
 import useVehicleContext from '@/hooks/useVehicleContext';
 
@@ -31,7 +31,7 @@ const Transition = forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const initialValues: Vehicle = {
+const initialValues: VehicleContext = {
   id: 0,
   placa: '',
   marcaModelo: '',
@@ -39,7 +39,7 @@ const initialValues: Vehicle = {
   kmAtual: 0,
 };
 
-const validationSchema = yup.object<Vehicle>({
+const validationSchema = yup.object<VehicleContext>({
   placa: yup.string().required('Informe a placa do veículo'),
   marcaModelo: yup.string().required('Informe a marca e modelo do veículo'),
   anoFabricacao: yup.number()

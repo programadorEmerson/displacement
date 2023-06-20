@@ -8,14 +8,14 @@ import generateCsvValues from '@/utils/generateCsvValues';
 
 import ApiService from '../services/api';
 
-export type Conductor = { id: number } & RawConductor;
+export type ConductorContext = { id: number } & RawConductor;
 
 const ConductorsContext = createContext({} as ConductorContextProps);
 
 const ConductorsProvider = ({ children }: { children: ReactNode }) => {
   const [fetching, setFetching] = useState(false);
-  const [conductors, setConductors] = useState<Conductor[]>([]);
-  const [conductor, setConductor] = useState<Conductor | null>(null);
+  const [conductors, setConductors] = useState<ConductorContext[]>([]);
+  const [conductor, setConductor] = useState<ConductorContext | null>(null);
   const [dataExport, setDataExport] = useState<Record<string, string>[]>([]);
   const [openDialogConductor, setOpenDialogConductor] = useState(false);
 
@@ -33,7 +33,7 @@ const ConductorsProvider = ({ children }: { children: ReactNode }) => {
     try {
       setFetching(true);
       const api = new ApiService();
-      const response = await api.get<Conductor[]>('Condutor');
+      const response = await api.get<ConductorContext[]>('Condutor');
       const exportData = response.map((client) => {
         const updated = generateCsvValues(client);
         return updated;
@@ -73,17 +73,19 @@ const ConductorsProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [getConductors]);
 
-  const getConductor = useCallback(async (id: number) => {
+  const getConductor = useCallback(async (id: number): Promise<ConductorContext | null> => {
     try {
       setFetching(true);
       const api = new ApiService();
-      const response = await api.get<Conductor>(`Condutor/${id}`);
+      const response = await api.get<ConductorContext>(`Condutor/${id}`);
       setConductor(response);
+      return response;
     } catch (error) {
       AlertNotification({
         icon: 'warning',
         text: 'Ocorreu um erro ao buscar o condutor.'
       });
+      return null;
     } finally {
       setFetching(false);
     }
