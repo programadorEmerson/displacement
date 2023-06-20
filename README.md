@@ -4,6 +4,9 @@ Frameworks/Bibliotecas utilizadas
 </p>
 </h1>
 
+Aplicação com deploy em https://displacement-ruby.vercel.app/ </br >
+Histórico de desenvolvimento: https://github.com/programadorEmerson/displacement/commits/main
+
 `NextJs`</br>
 O Next.js é um framework de código aberto, criado com React e permite o desenvolvimento de aplicações tanto front-end quanto back-end. O React é uma biblioteca Javascript para construção de interfaces e o Next é considerado um framework pois adiciona várias funcionalidades em cima do React. O Next.js por sua vez, busca reunir diversas funcionalidades a fim de manter o foco total em sua produtividade e eficiência. Totalmente pré-configurado, fornece toda estrutura para a criação de projetos com maior facilidade, trazendo para o desenvolvedor maior agilidade na criação de suas aplicações. Além disso, o Next.js permite que suas aplicações sejam renderizadas no lado do servidor (SSR), diminuindo o tempo de carregamento da aplicação, já que o esforço fica por conta do servidor, não do dispositivo do cliente, além de consumir menos recursos.
 
@@ -32,6 +35,13 @@ Com o `commitizen`, você pode usar uma interface interativa para criar mensagen
 Importante para Executar a aplicação
 </p>
 </h1>
+
+```bash
+# Arquivo .env para testes (Criar na raiz do projeto)
+NEXT_PUBLIC_TOKEN_PREFIX=displacement
+NEXT_PUBLIC_BACKEND_URL=https://api-deslocamento.herokuapp.com/api/v1
+NEXT_PUBLIC_APP_NAME=Deslocamento
+```
 
 ```bash
 # Instalação de pacotes
