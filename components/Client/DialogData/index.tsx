@@ -15,7 +15,7 @@ import InputText from '@/components/Inputs/InputText';
 
 import { FormDefault, ItemGrid } from '@/styles/pages/shared.styles';
 
-import { Client } from '@/contexts/client';
+import { ClientContext } from '@/contexts/client';
 
 import useClientContext from '@/hooks/useClientContext';
 import useGetLocations from '@/hooks/useGetLocation';
@@ -33,7 +33,7 @@ const Transition = forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const initialValues: Client = {
+const initialValues: ClientContext = {
   id: 0,
   numeroDocumento: '',
   tipoDocumento: '',
@@ -45,7 +45,7 @@ const initialValues: Client = {
   uf: '',
 };
 
-const validationSchema = yup.object<Client>({
+const validationSchema = yup.object<ClientContext>({
   numeroDocumento: yup.string().required('Informe o número do documento'),
   tipoDocumento: yup.string().required('Informe o tipo do documento'),
   nome: yup.string().required('Informe o nome do cliente'),

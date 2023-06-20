@@ -8,14 +8,14 @@ import generateCsvValues from '@/utils/generateCsvValues';
 
 import ApiService from '../services/api';
 
-export type Client = { id: number } & RawClient;
+export type ClientContext = { id: number } & RawClient;
 
 const ClientsContext = createContext({} as ClientContextProps);
 
 const ClientsProvider = ({ children }: { children: ReactNode }) => {
   const [fetching, setFetching] = useState(false);
-  const [clients, setClients] = useState<Client[]>([]);
-  const [client, setClient] = useState<Client | null>(null);
+  const [clients, setClients] = useState<ClientContext[]>([]);
+  const [client, setClient] = useState<ClientContext | null>(null);
   const [openDialogClient, setOpenDialogClient] = useState(false);
   const [dataExport, setDataExport] = useState<Record<string, string>[]>([]);
 
@@ -33,7 +33,7 @@ const ClientsProvider = ({ children }: { children: ReactNode }) => {
     try {
       setFetching(true);
       const api = new ApiService();
-      const response = await api.get<Client[]>('Cliente');
+      const response = await api.get<ClientContext[]>('Cliente');
       const exportData = response.map((client) => {
         const updated = generateCsvValues(client);
         return updated;
@@ -71,17 +71,19 @@ const ClientsProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [getClients]);
 
-  const getClient = useCallback(async (id: number) => {
+  const getClient = useCallback(async (id: number): Promise<ClientContext | null> => {
     try {
       setFetching(true);
       const api = new ApiService();
-      const response = await api.get<Client>(`Cliente/${id}`);
+      const response = await api.get<ClientContext>(`Cliente/${id}`);
       setClient(response);
+      return response;
     } catch (error) {
       AlertNotification({
         icon: 'warning',
         text: 'Ocorreu um erro ao buscar o cliente.'
       });
+      return null;
     } finally {
       setFetching(false);
     }

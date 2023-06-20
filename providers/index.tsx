@@ -32,8 +32,8 @@ export const ProvidersApp = ({ children, props }: ProvidersAppProps) => {
   return (
     <ClientsProvider>
       <ConductorsProvider>
-        <DisplacementsProvider>
-          <VehiclesProvider>
+        <VehiclesProvider>
+          <DisplacementsProvider>
             <CacheProvider value={emotionCache}>
               <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="pt-br">
                 <ThemeProvider theme={theme}>
@@ -41,8 +41,8 @@ export const ProvidersApp = ({ children, props }: ProvidersAppProps) => {
                 </ThemeProvider>
               </LocalizationProvider>
             </CacheProvider>
-          </VehiclesProvider>
-        </DisplacementsProvider>
+          </DisplacementsProvider>
+        </VehiclesProvider>
       </ConductorsProvider>
     </ClientsProvider>
   );

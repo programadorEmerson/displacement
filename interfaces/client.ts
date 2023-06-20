@@ -1,3 +1,5 @@
+import { ClientContext } from '@/contexts/client';
+
 interface Client {
   numeroDocumento: string;
   tipoDocumento: string;
@@ -12,7 +14,7 @@ interface Client {
 export default Client;
 
 export interface ClientContextProps {
-  clients: Client[];
+  clients: ClientContext[];
   fetching: boolean;
   client: { id: number } & Client | null;
   dataExport: Record<string, string>[],
@@ -20,7 +22,7 @@ export interface ClientContextProps {
   getClients: () => Promise<void>;
   setClient: (client: Client & { id: number } | null) => void;
   createClient: (client: Client) => Promise<void>;
-  getClient: (id: number) => Promise<void>;
+  getClient: (id: number) => Promise<Client & { id: number } | null>;
   deleteClient: (id: number) => Promise<void>;
   updateClient: (id: number, client: Client) => Promise<void>;
   handleShowDialogClient: (value: boolean) => void;
