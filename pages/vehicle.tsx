@@ -22,7 +22,7 @@ import {
 } from '@/styles/pages/shared.styles';
 import { StyledPaper } from '@/styles/pages/vehicle';
 
-import { Vehicle } from '@/contexts/vehicle';
+import { VehicleContext } from '@/contexts/vehicle';
 
 import useVehicleContext from '@/hooks/useVehicleContext';
 
@@ -54,7 +54,7 @@ const Vehicle: NextPage = () => {
       disableExport: true,
       width: 150,
       renderCell: ({ row }) => {
-        const { id } = row as Vehicle;
+        const { id } = row as VehicleContext;
         return (
           <StyledButtonContainer>
             <IconButton onClick={() => handleSelectVehicle(id)} >

@@ -20,28 +20,28 @@ const useMenuApp = () => {
       path: Navigation.CLIENT,
       disabled: false,
       icon: <PeopleAltRounded sx={props} />,
-      active: asPath.includes(Navigation.CLIENT),
+      active: asPath === Navigation.CLIENT,
     },
     {
       name: Menu.CONDUCTOR,
       path: Navigation.CONDUCTOR,
       disabled: false,
       icon: <CoPresent sx={props} />,
-      active: asPath.includes(Navigation.CONDUCTOR),
+      active: asPath === Navigation.CONDUCTOR,
     },
     {
       name: Menu.VEHICLE,
       path: Navigation.VEHICLE,
       disabled: false,
       icon: <DriveEtaRounded sx={props} />,
-      active: asPath.includes(Navigation.VEHICLE),
+      active: asPath === Navigation.VEHICLE,
     },
     {
       name: Menu.DISPLACEMENT,
       path: Navigation.DISPLACEMENT,
       disabled: false,
       icon: <MultipleStop sx={props} />,
-      active: asPath.includes(Navigation.DISPLACEMENT),
+      active: asPath === Navigation.DISPLACEMENT,
     },
   ];
 

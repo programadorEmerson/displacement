@@ -22,7 +22,7 @@ import {
   StyledDataGrid, StyledLimitPage
 } from '@/styles/pages/shared.styles';
 
-import { Conductor } from '@/contexts/conductor';
+import { ConductorContext } from '@/contexts/conductor';
 
 import useConductorContext from '@/hooks/useConductorContext';
 
@@ -55,7 +55,7 @@ const Conductor: NextPage = () => {
       disableExport: true,
       width: 150,
       renderCell: ({ row }) => {
-        const { id } = row as Conductor;
+        const { id } = row as ConductorContext;
         return (
           <StyledButtonContainer>
             <IconButton onClick={() => handleSelectConductor(id)} >

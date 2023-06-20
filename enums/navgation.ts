@@ -1,5 +1,5 @@
 enum Navigation {
-  CLIENT = '/client',
+  CLIENT = '/',
   CONDUCTOR = '/conductor',
   DISPLACEMENT = '/displacement',
   VEHICLE = '/vehicle',
